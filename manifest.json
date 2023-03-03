@@ -1,0 +1,42 @@
+{
+    "name": "mv3 template",
+    "description": "template extension with important scripts and APIS",
+    "version": "0.0.0.1",
+    "manifest_version": 3,
+    "icons": {
+        "16": "./res/icon16.png",
+        "24": "./res/icon24.png",
+        "32": "./res/icon32.png",
+        "48": "./res/icon48.png",
+        "64": "./res/icon64.png",
+        "128": "./res/icon128.png",
+        "256": "./res/icon256.png",
+        "512": "./res/icon512.png"
+    },
+    "action": {
+        "default_icons": {
+            "16": "./res/icon16.png",
+            "24": "./res/icon24.png",
+            "32": "./res/icon32.png",
+            "48": "./res/icon48.png",
+            "64": "./res/icon64.png",
+            "128": "./res/icon128.png",
+            "256": "./res/icon256.png",
+            "512": "./res/icon512.png"
+        },
+        "default_title": "templ",
+        "default_popup": "./popup/popup.html"
+    },
+    "options_page": "./options/options.html",
+    "background": {
+        "service_worker": "bg.js"
+    },
+    "permissions": [
+        "tabs",
+        "scripting",
+        "activeTab"
+    ],
+    "host_permissions": [
+        "*://*/*"
+    ]
+}

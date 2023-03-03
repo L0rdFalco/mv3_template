@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/popup/popup.css">
+    <title>popup page</title>
+</head>
+
+<body>
+    <div class="container">
+
+        <div class="activationContent">
+            <p id="toggleColors">rotate bar colors</p>
+            <button id=rotateColorBtn>Rotate</button>
+
+            <p id="changeText">change bar text</p>
+            <button id=changeTextBtn>change</button>
+        </div>
+
+    </div>
+
+    <div class="modal hidden">
+        <button class="close-modal">&times;</button>
+        <h1>Feature blocked</h1>
+        <p>
+            activate a premium subscription
+        </p>
+        <button id=accountState> activate </button>
+
+    </div>
+    <div class="overlay hidden">
+
+        <script src="/popup/popup.js"></script>
+
+</body>
+
+</html>
