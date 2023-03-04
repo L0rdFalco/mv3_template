@@ -56,6 +56,10 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 
         console.log("data from authpage: ", request);
 
+        if (request.message === "from-auth-cs.js") {
+            chrome.storage.local.set({ authToken: request.token })
+        }
+
     }
     else {
 
