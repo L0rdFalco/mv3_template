@@ -8,11 +8,7 @@ function getToken() {
     console.log("get token called");
     let token = null;
     let storagePollInterval = setInterval(async function () {
-
-        // token = await chrome.storage.local.get(["jwt_token"])
         token = localStorage.getItem("jwt_token")
-
-        console.log("token", token);
         //send it to the bg.js
         if (token) {
 

@@ -36,7 +36,21 @@ changeTextBtn.addEventListener("click", async function (e) {
         message: "from-popup-change-text"
     })
 
-    if (res.message.includes("success")) toggleModalAndOverlay()
+    console.log("popup res: ", res);
+
+    if (res.message === "not logged in") {
+
+        toggleModalAndOverlay()
+
+    }
+    else if (res.message === "free user") {
+        console.log("free user");
+    }
+
+    else if (res.message === "premium user") {
+        console.log("premium user", res.payload);
+    }
+
 
 
 })

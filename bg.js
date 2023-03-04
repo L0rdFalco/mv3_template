@@ -34,13 +34,51 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     }
 
     else if (request.message === "from-popup-change-text") {
-        //check if user is a premium user and then 
-        //do the quote extractor api call and send the appropriate response
+        /*
+        check if authToken exists in memory
+        if null send response that changes the dom to reflect this 
+        check if user is a premium user ny calling the account-state endpoint
+        if user isnt premum send response to popup that reflects this 
+        if user is premium do the quote extractor api call and send the appropriate response
+        */
+
+        (async () => {
+
+            let storageObj = await chrome.storage.local.get(["authToken"])
+
+            console.log("gotten authToken ---> ", Boolean(storageObj.authToken));
+
+            if (!storageObj.authToken) {
+                sendResponse({ message: "not logged in" })
+                return
+            }
+
+            //hit the api here
+            let res1 = await fetch(`http://127.0.0.1:3000/users/account-state/${storageObj.authToken}`)
+
+            const res2 = await res1.json()
+
+            if (res2.message === "premium user") {
+                const randomQuote = await getRandomQuote()
+                console.log(randomQuote);
+
+                sendResponse({
+                    message: "premium user",
+                    payload: randomQuote
+                })
 
 
-        sendResponse({
-            message: "from popup success"
-        })
+            }
+            else if (res2.message === "free user") {
+
+                sendResponse({ message: "free user" })
+            }
+
+        })()
+
+
+
+
     }
 
     else if (request.message === "from-popup-activate-extension") {
@@ -92,14 +130,11 @@ function openTab() {
 }
 
 
-function getQuotes() {
-    fetch("https://type.fit/api/quotes")
-        .then(function (response) {
-            return response.json();
-        })
-        .then(function (data) {
-            console.log(data);
-        });
+async function getRandomQuote() {
+    const res1 = await fetch("https://type.fit/api/quotes")
+    const res2 = await res1.json()
+
+    return res2[getRandomInt(0, res2.length - 1)]
 
 }
 
