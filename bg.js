@@ -64,6 +64,15 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 
 })
 
+//does not work with my subdomain. Works with localhost tho
+chrome.runtime.onMessageExternal.addListener(
+    function (request, sender, sendResponse) {
+
+        // console.log(request);
+        // console.log(sender);
+
+        sendResponse({ message: "external webpage communication success" })
+    });
 
 function openTab() {
     chrome.tabs.create({

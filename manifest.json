@@ -45,6 +45,12 @@
     "background": {
         "service_worker": "bg.js"
     },
+    "externally_connectable": {
+        "matches": [
+            "http://127.0.0.1/*",
+            "http://localhost/*"
+        ]
+    },
     "permissions": [
         "tabs",
         "scripting",
