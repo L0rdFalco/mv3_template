@@ -17,6 +17,8 @@ function elementInserter() {
         textDiv.innerText = "there is nothing more common than the wish to be remarkable"
         mainDiv.appendChild(textDiv);
 
+        //
+
         document.querySelector("body").insertAdjacentElement("beforebegin", mainDiv);
 
 
@@ -28,6 +30,18 @@ function elementInserter() {
 
 }
 
+
+window.onload = (async function (e) {
+
+    const savedColor = await chrome.storage.local.get(["bgColor"])
+
+    Array.from(document.getElementsByClassName("item"))[0].style.backgroundColor = savedColor.bgColor
+
+})
+
+chrome.storage.onChanged.addListener((changes, namespace) => {
+    location.reload()
+})
 
 
 elementInserter()

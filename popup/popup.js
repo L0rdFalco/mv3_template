@@ -24,6 +24,10 @@ rotateColorBtn.addEventListener("click", function (e) {
     },
         response => {
             console.log(response);
+
+            if (response.message === "from popup toggle color success") {
+                chrome.storage.local.set({ bgColor: response.value })
+            }
         }
     )
 

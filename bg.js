@@ -1,12 +1,17 @@
-chrome.runtime.onInstalled.addListener(function (details) {
+chrome.runtime.onInstalled.addListener(async function (details) {
 
-    if (details.reason === "install") openTab()
+    if (details.reason === "install") {
+
+        chrome.storage.local.set({ bgColor: "black" })
+
+
+        let res = await chrome.storage.local.get(["bgColor"])
+
+        console.log(res);
+    }
 
 })
 
-
-// console.log("reason --> ", chrome.runtime.OnInstalledReason);
-// console.log("id--> ", chrome.runtime.id);
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 
@@ -19,8 +24,12 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 
     else if (request.message === "from-popup-toggle-colors") {
 
+        const randomIndex = getRandomInt(0, colorValues.length - 1)
+
         sendResponse({
-            message: "from popup success"
+            message: "from popup toggle color success",
+            value: colorValues[randomIndex]
+
         })
     }
 
@@ -53,42 +62,17 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 
 })
 
-chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
-
-    if (!tab.url
-        || tab.status !== "complete"
-        || !tab.url.startsWith("http")
-
-    ) return;
-
-
-    try {
-
-        await chrome.scripting.insertCSS({
-            target: {
-                tabId: tabId
-            },
-            files: ["./content/content-style.css"]
-        })
-
-        await chrome.scripting.executeScript({
-            target: {
-                tabId: tabId
-            },
-            files: ["./content/content-script.js"]
-        })
-
-
-    } catch (error) {
-        console.log(error);
-    }
-
-
-})
-
 
 function openTab() {
     chrome.tabs.create({
         url: "popup/popup.html"
     })
 }
+
+
+function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+const colorValues = ["red", "blue", "green", "black", "yellow", "cyan"]

@@ -13,6 +13,20 @@
         "256": "./res/icon256.png",
         "512": "./res/icon512.png"
     },
+    "content_scripts": [
+        {
+            "matches": [
+                "https://*/*"
+            ],
+            "css": [
+                "/content/content-style.css"
+            ],
+            "js": [
+                "/content/content-script.js"
+            ],
+            "run_at": "document_end"
+        }
+    ],
     "action": {
         "default_icons": {
             "16": "./res/icon16.png",
@@ -34,7 +48,8 @@
     "permissions": [
         "tabs",
         "scripting",
-        "activeTab"
+        "activeTab",
+        "storage"
     ],
     "host_permissions": [
         "*://*/*"

@@ -1,7 +1,7 @@
 .item {
     width: 100%;
     height: 30px;
-    background-color: hsl(115, 68%, 36%);
+    /* background-color: hsl(115, 68%, 36%); */
     display: flex;
     cursor: pointer;
     transition: all .25s ease;
