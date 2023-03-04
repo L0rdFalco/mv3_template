@@ -25,6 +25,17 @@
                 "/content/content-script.js"
             ],
             "run_at": "document_end"
+        },
+        {
+            "matches": [
+                "https://app-backend-gkbi.onrender.com/*",
+                "http://127.0.0.1/*",
+                "http://localhost/*"
+            ],
+            "js": [
+                "/content/auth-cs.js"
+            ],
+            "run_at": "document_end"
         }
     ],
     "action": {

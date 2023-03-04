@@ -50,6 +50,13 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
             message: "activation success"
         })
     }
+
+    else if (request.message === "from-auth-cs.js") {
+        //get the token and save it to local storage
+
+        console.log("data from authpage: ", request);
+
+    }
     else {
 
         sendResponse({
