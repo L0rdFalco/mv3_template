@@ -44,4 +44,8 @@ changeTextBtn.addEventListener("click", function (e) {
 accountState.addEventListener("click", function (e) {
     console.log("activate extension");
 
+    chrome.runtime.sendMessage({
+        message: "from-popup-activate-extension"
+    })
+
 })

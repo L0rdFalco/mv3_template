@@ -12,7 +12,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 
     if (request.message === "from options-activate") {
         sendResponse({
-            message: "from options success"
+            message: "from options activation success"
         })
 
     }
@@ -25,9 +25,18 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     }
 
     else if (request.message === "from-popup-change-text") {
+        //check if user is a premium user and then send the appropriate response
 
         sendResponse({
             message: "from popup success"
+        })
+    }
+
+    else if (request.message === "from-popup-activate-extension") {
+        //open order page for user to buy package
+
+        sendResponse({
+            message: "activation success"
         })
     }
     else {
