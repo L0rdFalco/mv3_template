@@ -17,38 +17,35 @@ function toggleModalAndOverlay() {
 closeModalBtn.addEventListener("click", toggleModalAndOverlay)
 overlay.addEventListener("click", toggleModalAndOverlay)
 
-rotateColorBtn.addEventListener("click", function (e) {
+rotateColorBtn.addEventListener("click", async function (e) {
 
-    chrome.runtime.sendMessage({
+    const res = await chrome.runtime.sendMessage({
         message: "from-popup-toggle-colors"
-    },
-        response => {
-            console.log(response);
+    })
 
-            if (response.message === "from popup toggle color success") {
-                chrome.storage.local.set({ bgColor: response.value })
-            }
-        }
-    )
+    console.log(res);
+
+    if (res.message === "from popup toggle color success") {
+        chrome.storage.local.set({ bgColor: res.value })
+    }
 
 })
 
-changeTextBtn.addEventListener("click", function (e) {
-    chrome.runtime.sendMessage({
+changeTextBtn.addEventListener("click", async function (e) {
+    const res = await chrome.runtime.sendMessage({
         message: "from-popup-change-text"
-    },
-        response => {
-            if (response.message.includes("success")) toggleModalAndOverlay()
-        }
-    )
+    })
+
+    if (res.message.includes("success")) toggleModalAndOverlay()
+
 
 })
 
 
-accountState.addEventListener("click", function (e) {
+accountState.addEventListener("click", async function (e) {
     console.log("activate extension");
 
-    chrome.runtime.sendMessage({
+    const res = await chrome.runtime.sendMessage({
         message: "from-popup-activate-extension"
     })
 

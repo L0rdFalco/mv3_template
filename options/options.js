@@ -13,16 +13,18 @@ function toggleModalAndOverlay() {
 closeModalBtn.addEventListener("click", toggleModalAndOverlay)
 overlay.addEventListener("click", toggleModalAndOverlay)
 
-activateBtn.addEventListener("click", function (e) {
-    chrome.runtime.sendMessage({
+activateBtn.addEventListener("click", async function (e) {
+    const res = await chrome.runtime.sendMessage({
         message: "from-options-activate"
-    },
-        response => {
-            /**
-             * if response shows that the user has bought a subscription or is a premium member
-             * change the dom to reflect this situation
-             */
-        }
-    )
+    })
+
+    if (res) {
+
+        /**
+     * if response shows that the user has bought a subscription or is a premium member
+     * change the dom to reflect this situation
+     */
+    }
+
 
 })

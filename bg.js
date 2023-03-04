@@ -34,7 +34,9 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     }
 
     else if (request.message === "from-popup-change-text") {
-        //check if user is a premium user and then send the appropriate response
+        //check if user is a premium user and then 
+        //do the quote extractor api call and send the appropriate response
+
 
         sendResponse({
             message: "from popup success"
@@ -69,6 +71,17 @@ function openTab() {
     })
 }
 
+
+function getQuotes() {
+    fetch("https://type.fit/api/quotes")
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {
+            console.log(data);
+        });
+
+}
 
 function getRandomInt(min, max) {
     min = Math.ceil(min);
