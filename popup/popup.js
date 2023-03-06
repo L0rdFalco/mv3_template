@@ -60,13 +60,13 @@ changeTextBtn.addEventListener("click", async function (e) {
     }
 
     else if (res.message === "free user") {
-        let storageObj = await chrome.storage.local.get(["authToken"])
+        let storageObj = await chrome.storage.local.get(["token"])
 
         const obj = {
             heading: "Premium Feature",
             message: "please purchase a subscription to acess this feature",
             btnText: "purchase now",
-            link: `https://app-backend-gkbi.onrender.com/subscriptions/${storageObj.authToken}`
+            link: `https://app-backend-gkbi.onrender.com/subscriptions/${storageObj.token}`
         }
 
         toggleModalAndOverlay(obj)
@@ -88,7 +88,7 @@ changeTextBtn.addEventListener("click", async function (e) {
 
 accountState.addEventListener("click", function (e) {
 
-    window.open(`https://app-backend-gkbi.onrender.com/${accountState.getAttribute("data-link")}`, "_blank")
+    window.open(`${accountState.getAttribute("data-link")}`, "_blank")
 
 
 })

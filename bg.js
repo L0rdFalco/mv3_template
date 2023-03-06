@@ -45,18 +45,24 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 
             try {
 
-                let storageObj = await chrome.storage.local.get(["authToken"])
+                let storageObj = await chrome.storage.local.get(["token"])
 
+                console.log(storageObj);
 
-                if (!storageObj.authToken) {
+                const authToken = storageObj.token
+
+                if (!authToken) {
                     sendResponse({ message: "not logged in" })
                     return
                 }
 
+
                 //hit the api here
-                let res1 = await fetch(`http://127.0.0.1:3000/users/account-state/${storageObj.authToken}`)
+                let res1 = await fetch(`https://app-backend-gkbi.onrender.com/users/account-state/${authToken}`)
 
                 const res2 = await res1.json()
+
+                console.log(res2);
 
                 if (res2.message === "premium user") {
                     const randomQuote = await getRandomQuote()
@@ -103,7 +109,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         console.log("data from authpage: ", request);
 
         if (request.message === "from-auth-cs.js") {
-            chrome.storage.local.set({ authToken: request.token })
+            chrome.storage.local.set({ token: request.token })
         }
 
     }
