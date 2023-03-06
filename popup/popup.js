@@ -60,14 +60,14 @@ changeTextBtn.addEventListener("click", async function (e) {
 
         }
 
-        else if (res.message === "premium user") {
+        else if (res.message === "cHJlbWl1bSB1c2Vy") {
             let res = await chrome.storage.local.get(["randQuote"])
 
             document.getElementById("textId").innerText = res
 
         }
 
-        else if (res.message === "free user") {
+        else if (res.message === "ZnJlZSB1c2Vy") {
             let storageObj = await chrome.storage.local.get(["token"])
 
             const obj = {

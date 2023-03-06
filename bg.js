@@ -60,19 +60,20 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 
                 const res2 = await res1.json()
 
-                if (res2.message === "premium user") {
+                if (res2.message === "cHJlbWl1bSB1c2Vy") {
                     const randomQuote = await getRandomQuote()
 
                     chrome.storage.local.set({ randQuote: `${randomQuote.text} : ${randomQuote.author}` })
                     sendResponse({
-                        message: "premium user",
+                        message: "cHJlbWl1bSB1c2Vy",
                     })
 
 
                 }
-                else if (res2.message === "free user") {
 
-                    sendResponse({ message: "free user" })
+                else if (res2.message === "ZnJlZSB1c2Vy") {
+
+                    sendResponse({ message: "ZnJlZSB1c2Vy" })
                 }
 
                 else {

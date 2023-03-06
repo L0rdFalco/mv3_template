@@ -5,7 +5,6 @@
 */
 
 function getToken() {
-    console.log("get token called");
     let token = null;
     let storagePollInterval = setInterval(async function () {
         token = localStorage.getItem("jwt_token")
