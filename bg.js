@@ -43,33 +43,44 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 
         (async () => {
 
-            let storageObj = await chrome.storage.local.get(["authToken"])
+            try {
+
+                let storageObj = await chrome.storage.local.get(["authToken"])
 
 
-            if (!storageObj.authToken) {
-                sendResponse({ message: "not logged in" })
-                return
+                if (!storageObj.authToken) {
+                    sendResponse({ message: "not logged in" })
+                    return
+                }
+
+                //hit the api here
+                let res1 = await fetch(`http://127.0.0.1:3000/users/account-state/${storageObj.authToken}`)
+
+                const res2 = await res1.json()
+
+                if (res2.message === "premium user") {
+                    const randomQuote = await getRandomQuote()
+
+                    chrome.storage.local.set({ randQuote: `${randomQuote.text} : ${randomQuote.author}` })
+                    sendResponse({
+                        message: "premium user",
+                    })
+
+
+                }
+                else if (res2.message === "free user") {
+
+                    sendResponse({ message: "free user" })
+                }
+
+                else {
+                    sendResponse({ message: "invalid token. Please log into your account again" })
+
+                }
+            } catch (error) {
+                console.log(error);
             }
 
-            //hit the api here
-            let res1 = await fetch(`http://127.0.0.1:3000/users/account-state/${storageObj.authToken}`)
-
-            const res2 = await res1.json()
-
-            if (res2.message === "premium user") {
-                const randomQuote = await getRandomQuote()
-
-                chrome.storage.local.set({ randQuote: `${randomQuote.text} : ${randomQuote.author}` })
-                sendResponse({
-                    message: "premium user",
-                })
-
-
-            }
-            else if (res2.message === "free user") {
-
-                sendResponse({ message: "free user" })
-            }
 
         })()
 
@@ -120,6 +131,8 @@ chrome.runtime.onMessageExternal.addListener(
         sendResponse({ message: "external webpage communication success" })
     });
 
+
+//another way of open a url in a new tab
 function openTab() {
     chrome.tabs.create({
         url: "popup/popup.html"
