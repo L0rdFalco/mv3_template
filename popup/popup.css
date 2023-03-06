@@ -6,7 +6,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 350px;
+    height: 450px;
     width: 400px;
     flex-direction: column;
     
@@ -20,7 +20,7 @@ body {
   }
   .activationContent{
     width: 320px;
-    height: 190px;
+    height: 100%px;
     flex-direction: column;
     align-items: center;
     background-color: #fff;

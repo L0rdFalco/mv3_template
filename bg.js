@@ -3,11 +3,10 @@ chrome.runtime.onInstalled.addListener(async function (details) {
     if (details.reason === "install") {
 
         chrome.storage.local.set({ bgColor: "black" })
+        chrome.storage.local.set({ randQuote: "there is nothing so common as the wish to be remarkable : william shakespeare" })
 
+        await chrome.storage.local.get(["bgColor"])
 
-        let res = await chrome.storage.local.get(["bgColor"])
-
-        console.log(res);
     }
 
 })
@@ -46,7 +45,6 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 
             let storageObj = await chrome.storage.local.get(["authToken"])
 
-            console.log("gotten authToken ---> ", Boolean(storageObj.authToken));
 
             if (!storageObj.authToken) {
                 sendResponse({ message: "not logged in" })
@@ -60,11 +58,10 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 
             if (res2.message === "premium user") {
                 const randomQuote = await getRandomQuote()
-                console.log(randomQuote);
 
+                chrome.storage.local.set({ randQuote: `${randomQuote.text} : ${randomQuote.author}` })
                 sendResponse({
                     message: "premium user",
-                    payload: randomQuote
                 })
 
 
@@ -85,7 +82,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         //open order page for user to buy package
 
         sendResponse({
-            message: "activation success"
+            message: "page opened success"
         })
     }
 

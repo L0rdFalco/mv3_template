@@ -1,7 +1,7 @@
 'use strict';
 
 
-function elementInserter() {
+async function elementInserter() {
 
     try {
         if (document.getElementById("info-id")) return;
@@ -13,8 +13,9 @@ function elementInserter() {
         textDiv.classList.add("text");
         mainDiv.id = "info-id";
         textDiv.id = "textId";
+        let res = await chrome.storage.local.get(["randQuote"])
 
-        textDiv.innerText = "there is nothing more common than the wish to be remarkable"
+        textDiv.innerText = JSON.stringify(res.randQuote)
         mainDiv.appendChild(textDiv);
 
         //
