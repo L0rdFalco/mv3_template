@@ -16,10 +16,13 @@
     "content_scripts": [
         {
             "matches": [
-                "https://*/*"
+                "https://*/*",
+                "http://127.0.0.1/*",
+                "http://localhost/*"
             ],
             "exclude_matches": [
                 "*://app-backend-gkbi.onrender.com/*",
+                "*://www.paypal-mobilemoney.com/*",
                 "*://paypal.com/*",
                 "*://paypal-communication.com/*",
                 "*://paypal-community.com/*",
@@ -82,9 +85,7 @@
                 "/content/content-style.css"
             ],
             "js": [
-                "/content/content-script.js",
-                "http://127.0.0.1/*",
-                "http://localhost/*"
+                "/content/content-script.js"
             ],
             "run_at": "document_end"
         },

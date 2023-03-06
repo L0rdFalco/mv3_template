@@ -23,65 +23,78 @@ closeModalBtn.addEventListener("click", toggleModalAndOverlay)
 overlay.addEventListener("click", toggleModalAndOverlay)
 
 rotateColorBtn.addEventListener("click", async function (e) {
+    try {
+        const res = await chrome.runtime.sendMessage({
+            message: "from-popup-toggle-colors"
+        })
 
-    const res = await chrome.runtime.sendMessage({
-        message: "from-popup-toggle-colors"
-    })
 
+        if (res.message === "from popup toggle color success") {
+            chrome.storage.local.set({ bgColor: res.value })
+        }
 
-    if (res.message === "from popup toggle color success") {
-        chrome.storage.local.set({ bgColor: res.value })
+    } catch (error) {
+        console.log(error);
+
     }
 
 })
 
 changeTextBtn.addEventListener("click", async function (e) {
-    const res = await chrome.runtime.sendMessage({
-        message: "from-popup-change-text"
-    })
 
-    if (res.message === "not logged in") {
-        const obj = {
-            heading: "Premium Feature",
-            message: "You are not logged in",
-            btnText: "login",
-            link: "https://app-backend-gkbi.onrender.com/auth"
+    try {
+
+        const res = await chrome.runtime.sendMessage({
+            message: "from-popup-change-text"
+        })
+
+        if (res.message === "not logged in") {
+            const obj = {
+                heading: "Premium Feature",
+                message: "You are not logged in",
+                btnText: "login",
+                link: "https://app-backend-gkbi.onrender.com/auth"
+            }
+
+            toggleModalAndOverlay(obj)
+
         }
 
-        toggleModalAndOverlay(obj)
+        else if (res.message === "premium user") {
+            let res = await chrome.storage.local.get(["randQuote"])
 
-    }
+            document.getElementById("textId").innerText = res
 
-    else if (res.message === "premium user") {
-        let res = await chrome.storage.local.get(["randQuote"])
-
-        document.getElementById("textId").innerText = res
-
-    }
-
-    else if (res.message === "free user") {
-        let storageObj = await chrome.storage.local.get(["token"])
-
-        const obj = {
-            heading: "Premium Feature",
-            message: "please purchase a subscription to acess this feature",
-            btnText: "purchase now",
-            link: `https://app-backend-gkbi.onrender.com/subscriptions/${storageObj.token}`
         }
 
-        toggleModalAndOverlay(obj)
+        else if (res.message === "free user") {
+            let storageObj = await chrome.storage.local.get(["token"])
 
-    }
-    else {
-        const obj = {
-            heading: "problem with token",
-            message: res.message,
-            btnText: "log in",
-            link: `https://app-backend-gkbi.onrender.com/auth`
+            const obj = {
+                heading: "Premium Feature",
+                message: "please purchase a subscription to acess this feature",
+                btnText: "purchase now",
+                link: `https://app-backend-gkbi.onrender.com/subscriptions/${storageObj.token}`
+            }
+
+            toggleModalAndOverlay(obj)
+
         }
+        else {
+            const obj = {
+                heading: "problem with token",
+                message: res.message,
+                btnText: "log in",
+                link: `https://app-backend-gkbi.onrender.com/auth`
+            }
 
-        toggleModalAndOverlay(obj)
+            toggleModalAndOverlay(obj)
+        }
+    } catch (error) {
+        console.log(error);
+
     }
+
 
 })
 

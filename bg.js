@@ -47,8 +47,6 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 
                 let storageObj = await chrome.storage.local.get(["token"])
 
-                console.log(storageObj);
-
                 const authToken = storageObj.token
 
                 if (!authToken) {
@@ -61,8 +59,6 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
                 let res1 = await fetch(`https://app-backend-gkbi.onrender.com/users/account-state/${authToken}`)
 
                 const res2 = await res1.json()
-
-                console.log(res2);
 
                 if (res2.message === "premium user") {
                     const randomQuote = await getRandomQuote()
@@ -104,20 +100,30 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     }
 
     else if (request.message === "from-auth-cs.js") {
-        //get the token and save it to local storage
 
-        console.log("data from authpage: ", request);
+        try {
+            //get the token and save it to local storage
 
-        if (request.message === "from-auth-cs.js") {
-            chrome.storage.local.set({ token: request.token })
+            if (request.message === "from-auth-cs.js") {
+                chrome.storage.local.set({ token: request.token })
+            }
+        } catch (error) {
+
         }
+
 
     }
     else {
 
-        sendResponse({
-            message: "fail"
-        })
+        try {
+            sendResponse({
+                message: "fail"
+            })
+        } catch (error) {
+            console.log(error);
+
+        }
+
 
     }
 

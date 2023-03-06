@@ -18,8 +18,6 @@ async function elementInserter() {
         textDiv.innerText = JSON.stringify(res.randQuote)
         mainDiv.appendChild(textDiv);
 
-        //
-
         document.querySelector("body").insertAdjacentElement("beforebegin", mainDiv);
 
 
@@ -33,10 +31,16 @@ async function elementInserter() {
 
 
 window.onload = (async function (e) {
+    try {
+        const savedColor = await chrome.storage.local.get(["bgColor"])
 
-    const savedColor = await chrome.storage.local.get(["bgColor"])
+        Array.from(document.getElementsByClassName("item"))[0].style.backgroundColor = savedColor.bgColor
+    } catch (error) {
+        console.log(error);
 
-    Array.from(document.getElementsByClassName("item"))[0].style.backgroundColor = savedColor.bgColor
+    }
+
+
 
 })
 
