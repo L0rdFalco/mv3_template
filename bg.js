@@ -60,20 +60,20 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 
                 const res2 = await res1.json()
 
-                if (res2.message === "cHJlbWl1bSB1c2Vy") {
+                if (res2.message === "prcHJlbWl1bSB1c2Vy") {
                     const randomQuote = await getRandomQuote()
 
                     chrome.storage.local.set({ randQuote: `${randomQuote.text} : ${randomQuote.author}` })
                     sendResponse({
-                        message: "cHJlbWl1bSB1c2Vy",
+                        message: "prcHJlbWl1bSB1c2Vy",
                     })
 
 
                 }
 
-                else if (res2.message === "ZnJlZSB1c2Vy") {
+                else if (res2.message === "ZnJlZSB1c2Vyfr") {
 
-                    sendResponse({ message: "ZnJlZSB1c2Vy" })
+                    sendResponse({ message: "ZnJlZSB1c2Vyfr" })
                 }
 
                 else {
@@ -105,9 +105,8 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         try {
             //get the token and save it to local storage
 
-            if (request.message === "from-auth-cs.js") {
-                chrome.storage.local.set({ token: request.token })
-            }
+            chrome.storage.local.set({ token: request.token })
+
         } catch (error) {
 
         }

@@ -60,19 +60,19 @@ changeTextBtn.addEventListener("click", async function (e) {
 
         }
 
-        else if (res.message === "cHJlbWl1bSB1c2Vy") {
+        else if (res.message === "prcHJlbWl1bSB1c2Vy") {
             let res = await chrome.storage.local.get(["randQuote"])
 
             document.getElementById("textId").innerText = res
 
         }
 
-        else if (res.message === "ZnJlZSB1c2Vy") {
+        else if (res.message === "ZnJlZSB1c2Vyfr") {
             let storageObj = await chrome.storage.local.get(["token"])
 
             const obj = {
                 heading: "Premium Feature",
-                message: "please purchase a subscription to acess this feature",
+                message: "please purchase a subscription to access this feature",
                 btnText: "purchase now",
                 link: `https://app-backend-gkbi.onrender.com/subscriptions/${storageObj.token}`
             }
