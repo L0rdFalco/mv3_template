@@ -8,7 +8,6 @@ if user is premium do the quote extractor api call and send the appropriate resp
 */
 
     (async () => {
-        console.log("dsfdsfsd");
 
 
         try {
